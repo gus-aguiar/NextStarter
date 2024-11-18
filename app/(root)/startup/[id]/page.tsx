@@ -21,6 +21,32 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!post) return notFound();
 
   const parsedContent = md.render(post?.pitch || "");
+  type NestedObject = { [key: string]: number | NestedObject[] };
+
+  function sumNested(obj: NestedObject): number {
+    let sum = 0;
+
+    for (const key in obj) {
+      const value = obj[key];
+
+      if (typeof value === "number") {
+        sum += value;
+      } else if (Array.isArray(value)) {
+        for (const nestedObj of value) {
+          sum += sumNested(nestedObj);
+        }
+      }
+    }
+
+    return sum;
+  }
+
+  const data: NestedObject = {
+    a: 5,
+    b: [{ c: 10 }, { d: [{ e: 3 }, { f: 2 }] }],
+    g: [{ h: 7 }],
+  };
+  console.log(sumNested(data));
 
   return (
     <>
