@@ -19,6 +19,11 @@ const View = async ({ id }: { id: string }) => {
         .commit()
   );
 
+  console.log("----------totalViews----------");
+  console.log(totalViews);
+
+  //!! parei debugando isso aqui
+
   return (
     <div className="view-container">
       <div className="absolute -top-2 -right-2">
