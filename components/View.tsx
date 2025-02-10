@@ -8,6 +8,12 @@ import { unstable_after as after } from "next/server";
 
 const View = async ({ id }: { id: string }) => {
   const { views: totalViews } = await client
+
+
+
+
+
+
     .withConfig({ useCdn: false })
     .fetch(STARTUP_VIEWS_QUERY, { id });
 
@@ -19,10 +25,7 @@ const View = async ({ id }: { id: string }) => {
         .commit()
   );
 
-  console.log("----------totalViews----------");
-  console.log(totalViews);
 
-  //!! parei debugando isso aqui
 
   return (
     <div className="view-container">
