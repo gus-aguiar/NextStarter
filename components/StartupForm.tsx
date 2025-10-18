@@ -14,7 +14,7 @@ import { createPitch } from "@/lib/actions"
 
 const StartupForm = () => {
   const [pitch, setPitch] = useState<string>("")
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string[]>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
   const router = useRouter()
@@ -38,7 +38,7 @@ const StartupForm = () => {
       }
 
       await formSchema.parseAsync(formValues)
-      const result = await createPitch({}, formData, pitch)
+      const result = await createPitch(formData, pitch)
 
       if (result.status === "SUCCESS") {
         toast({
@@ -52,7 +52,7 @@ const StartupForm = () => {
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors
-        setErrors(fieldErrors as Record<string, string> | any)
+        setErrors(fieldErrors as Record<string, string[]>)
         toast({
           title: "Invalid form data",
           description: "Please check the form for errors",
@@ -77,7 +77,7 @@ const StartupForm = () => {
           Title
         </label>
         <Input id="title" name="title" className="startup-form_input" required placeholder="Startup Title" />
-        {errors.title && <p className="startup-form_error">{errors.title}</p>}
+        {errors.title?.[0] && <p className="startup-form_error">{errors.title[0]}</p>}
       </div>
       <div>
         <label htmlFor="description" className="startup-form_label">
@@ -90,7 +90,7 @@ const StartupForm = () => {
           required
           placeholder="Startup Description"
         />
-        {errors.description && <p className="startup-form_error">{errors.description}</p>}
+        {errors.description?.[0] && <p className="startup-form_error">{errors.description[0]}</p>}
       </div>
       <div>
         <label htmlFor="category" className="startup-form_label">
@@ -103,14 +103,14 @@ const StartupForm = () => {
           required
           placeholder="Startup Category (Tech, Health, etc)"
         />
-        {errors.category && <p className="startup-form_error">{errors.category}</p>}
+        {errors.category?.[0] && <p className="startup-form_error">{errors.category[0]}</p>}
       </div>
       <div>
         <label htmlFor="link" className="startup-form_label">
           Image URL
         </label>
         <Input id="link" name="link" className="startup-form_input" required placeholder="Startup link" />
-        {errors.link && <p className="startup-form_error">{errors.link}</p>}
+        {errors.link?.[0] && <p className="startup-form_error">{errors.link[0]}</p>}
       </div>
       <div data-color-mode="light">
         <label htmlFor="pitch" className="startup-form_label">
@@ -130,7 +130,7 @@ const StartupForm = () => {
             disallowedElements: ["style"],
           }}
         />
-        {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
+        {errors.pitch?.[0] && <p className="startup-form_error">{errors.pitch[0]}</p>}
       </div>
       <Button type="submit" className="startup-form_btn text-white" disabled={isSubmitting}>
         {isSubmitting ? "Submitting..." : "Submit"}

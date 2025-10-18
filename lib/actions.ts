@@ -6,7 +6,6 @@ import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
 
 export const createPitch = async (
-  state: any,
   form: FormData,
   pitch: string
 ) => {
@@ -31,7 +30,7 @@ export const createPitch = async (
       category,
       image: link,
       slug: {
-        _type: slug,
+        _type: "slug",
         current: slug,
       },
       author: {
@@ -49,8 +48,6 @@ export const createPitch = async (
       status: "SUCCESS",
     });
   } catch (error) {
-    console.log(error);
-
     return parseServerActionReponse({
       error: JSON.stringify(error),
       status: "ERROR",
