@@ -10,11 +10,11 @@ const Navbar = async () => {
   return (
     <>
       <header className="px-5 py-3 bg-[rebeccapurple] shadow-sm font-work-sans">
-        <nav className="flex justify-between items-center">
+        <nav className="flex justify-between items-center text-white">
           <Link href="/">
             <Image src="/logo.png" alt="Logo" width={144} height={30} />
           </Link>
-          <div className="flex items-center gap-5 text-black">
+          <div className="flex items-center gap-5">
             {session && session?.user ? (
               <>
                 <Link href={"/startup/create"}>
@@ -30,7 +30,7 @@ const Navbar = async () => {
                   <button type="submit">
                     <span className="max-sm:hidden">Logout</span>
 
-                    <LogOut className="size-6 sm:hidden text-red-500" />
+                    <LogOut className="size-6 sm:hidden text-white" />
                   </button>
                 </form>
                 <Link href={`/user/${session?.id}`}>

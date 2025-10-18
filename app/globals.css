@@ -128,7 +128,7 @@
   }
 
   .search-btn {
-    @apply size-[50px] rounded-full bg-black flex justify-center items-center !important;
+    @apply size-[50px] rounded-full bg-primary text-white flex justify-center items-center !important;
   }
 
   /* startupcard */
@@ -202,8 +202,8 @@
     background-image: linear-gradient(
       to right,
       transparent 49.5%,
-      rgba(251, 232, 67, 0.2) 49.5%,
-      rgba(251, 232, 67, 0.6) 50.5%,
+      rgba(102, 51, 153, 0.2) 49.5%,
+      rgba(102, 51, 153, 0.6) 50.5%,
       transparent 50.5%
     );
     background-size: 5% 100%;
